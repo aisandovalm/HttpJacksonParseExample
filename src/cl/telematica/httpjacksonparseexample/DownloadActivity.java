@@ -15,8 +15,6 @@ import cl.telematica.httpjacksonparseexample.models.EventModel;
 import cl.telematica.httpjacksonparseexample.models.FirstNode;
 import cl.telematica.httpjacksonparseexample.models.PerformanceModel;
 import cl.telematica.httpjacksonparseexample.models.ResultsModel;
-import cl.telematica.httpjacksonparseexample.models.ResultsPageModel;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,14 +33,11 @@ public class DownloadActivity extends Activity implements DownloadListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_download);
 
-//		setContentView(R.layout.performance_activity);
-//		listView = (ListView) findViewById(R.id.listView3);
-//		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-		
-		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-		text = (TextView) findViewById(R.id.textView1);
+		setContentView(R.layout.performance_activity);
+		listView = (ListView) findViewById(R.id.listView3);
+		progressBar = (ProgressBar) findViewById(R.id.legacy_navigation_progressBar);
+
 		
 		new DownloadManager(this, 10000, 15000, "GET")
 					.execute(getString(R.string.page_url));
@@ -59,59 +54,39 @@ public class DownloadActivity extends Activity implements DownloadListener {
 		if(progressBar.getVisibility() == View.VISIBLE){
 			progressBar.setVisibility(View.GONE);
 		}
-	/*FirstNode model = (FirstNode) parseServiceResponse(data, FirstNode.class);
-		if (model != null && model.resultsPageModel != null) {
-			if (model.resultsPageModel.results != null) {
+		FirstNode model = (FirstNode) parseServiceResponse(data, FirstNode.class);
+		if (model != null && model.resultsPageModel != null) 
+		{
+			if (model.resultsPageModel.results != null) 
+			{
 				ResultsModel resultModel = model.resultsPageModel.results;
-				if (resultModel != null) {
+				if (resultModel != null) 
+				{
 					List<EventModel> eventsList = resultModel.eventList;
-					if (eventsList != null && eventsList.size() > 0) {
-						for (EventModel event : eventsList) {
+					if (eventsList != null && eventsList.size() > 0) 
+					{
+						for (EventModel event : eventsList) 
+						{
 							List<PerformanceModel> performanceList = event.performanceList;
-							if(performanceList != null && performanceList.size()>0){
-							*/
-								
-								//for(PerformanceModel performance : performanceList)
-						/*			textToShow = "Resultado: \n\n" + "billing: "
-											+ performance.billing + "\n\n" + "billing index: " + performance.billingIndex
-											+ "\n\n" + "nombre: " + performance.displayName
-											+ "\n\n" + "id: " + performance.id;
-*/
-									//EarthQuakeDataModel model = new EarthQuakeDataModel();
-	//								PerformanceModel performance = new PerformanceModel(); 
-//									performance.billing = performanceList.get(0).billing;
-//									performance.billingIndex = performanceList.get(0).billingIndex;
-//									performance.displayName = performanceList.get(0).displayName;
-//									performance.id = performanceList.get(0).id;
-		//							list.add(performance);
-									
-	//							}
-						/*	textToShow = "Resultado: \n\n" + "nombre: "
-									+ event.displayName + "\n\n" + "popularidad: " + event.popularity
-									+ "\n\n" + "status: " + event.status
-									+ "\n\n" + "tipo: " + event.type;*/
-							
-/*							}
+							if(performanceList != null && performanceList.size()>0)
+							{
+								for(PerformanceModel performance : performanceList)
+								{
+									performance.billing = performanceList.get(0).billing;
+									performance.billingIndex = performanceList.get(0).billingIndex;
+									performance.displayName = performanceList.get(0).displayName;
+									performance.id = performanceList.get(0).id;
+									list.add(performance);
+								}
+							}
+						}
 					}
 				}
 			}
+			RssAdapter_details adapter = new RssAdapter_details(getApplicationContext(), R.string.app_name, list);
+			listView.setAdapter(adapter);
 		}
-	*/	
-    
-	PerformanceModel model = new PerformanceModel(); 
-	model.billing = "asdf";
-	model.billingIndex = 1;
-	model.displayName = "hola";
-	model.id = 3;
-	String textToShow = "";
-
-	    list.add(model);
-	
-		textToShow = list.get(0).billing + " " + list.get(0).displayName + " " + list.get(0).id; 
-		text.setText(textToShow);
-	//	RssAdapter_details adapter = new RssAdapter_details(getApplicationContext(), R.string.app_name, list);
-	//	listView.setAdapter(adapter);
-	}
+	}	
 
 	@Override
 	public void onError(String error, int code) {

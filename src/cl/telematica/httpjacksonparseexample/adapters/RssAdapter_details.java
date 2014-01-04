@@ -53,11 +53,11 @@ public class RssAdapter_details extends ArrayAdapter<PerformanceModel> {
 		id = holder.getId();
 
 //setearlos para mostrar
-		billingIndex.setText(model.billingIndex);
+		billingIndex.setText(String.valueOf(model.billingIndex));
 		displayName.setText(model.displayName);
 	//	artist.setText(model.artist);
 		billing.setText(model.billing);
-		id.setText(model.id);
+		id.setText(String.valueOf(model.id));
 		
 		return convertView;
 	}
